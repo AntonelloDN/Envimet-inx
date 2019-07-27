@@ -1,5 +1,5 @@
 # Envimet-inx
-A basic plugin for Sketchup to write *.inx files of ENVI_MET 4.3.
+A basic plugin for Sketchup to write *.inx files for ENVI_MET 4.3.
 
 ![Tutorial](https://github.com/AntonelloDN/Envimet-inx/blob/master/examples/tutorial.gif)
 
