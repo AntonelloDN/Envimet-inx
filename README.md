@@ -1,7 +1,7 @@
 # Envimet-inx
 A basic plugin for Sketchup to write *.inx files of ENVI_MET 4.3.
 
-![MorphoMesh Example](https://github.com/AntonelloDN/Envimet-inx/blob/master/examples/tutorial.gif)
+![Tutorial](https://github.com/AntonelloDN/Envimet-inx/blob/master/examples/tutorial.gif)
 
 ## Features:
 - Calculate automatically grid dimensions based on buildings
