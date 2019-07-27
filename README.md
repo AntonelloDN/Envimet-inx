@@ -12,7 +12,6 @@ A basic plugin for Sketchup to write *.inx files of ENVI_MET 4.3.
 - Buildings must be volumes
 - You can apply only one wall material and roof material for all buildings or context
 - You cannot manage soils and dem
-- This plugin is a beta release
 
 ## Setup:
 Install *rbz from Sketchup Extension Warehouse.
