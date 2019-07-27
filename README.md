@@ -18,7 +18,7 @@ A basic plugin for Sketchup to write *.inx files of ENVI_MET 4.3.
 Install *rbz from Sketchup Extension Warehouse.
 
 ## To do:
-a) A better method to create voxels... performance issue if model is huge.<br>
+a) A better method to create voxels... if model is huge it will run slow<br>
 b) Study a way to apply materials<br>
 c) Dem modeling<br>
 d) Soil modeling<br>
