@@ -4,7 +4,6 @@ A basic plugin for Sketchup to write *.inx files of ENVI_MET 4.3.
 ## Features:
 - Calculate automatically grid dimensions based on buildings
 - Create a 3d model with buildings, 2d trees
-- Ricalculate buildings or 2d trees
 
 ## Limits:
 - Unit of the template must be "meter"
