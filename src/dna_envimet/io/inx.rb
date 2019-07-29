@@ -101,8 +101,8 @@ module Envimet::EnvimetInx
       formatter.compact = true
       formatter.write(doc, out)
 
-      adaptXmlText(out)
-      puts out
+      adapt_xml_text(out)
+      puts "File Ok!"
 
       # create a real file
       File.open(full_path, "w") do |file|
@@ -112,7 +112,7 @@ module Envimet::EnvimetInx
     end
 
     private
-    def adaptXmlText(text)
+    def adapt_xml_text(text)
       text.gsub!("§", "\n")
       text.gsub!("\'", "\"")
     end

@@ -3,6 +3,7 @@ module Envimet::EnvimetInx
   def self.create_envimet_layers
 
     model = Sketchup.active_model
+    model.start_operation("Create Layers", true)
 
     result = UI.messagebox("Click Ok to create ENVI_MET layers.", MB_OK)
     if result == IDOK
@@ -26,7 +27,10 @@ module Envimet::EnvimetInx
 
     end
 
+    model.commit_operation
+
   end
+
 
   def self.set_envimet_location
 
@@ -66,6 +70,11 @@ module Envimet::EnvimetInx
       grid.gZmethod(bb_box.min, bb_box.max)
       grid.grid_preview_3d
 
+      if grid.grid_preview_3d.empty?
+        UI.messagebox("Calculation Failed... Grid is based on buildings or context. Please, create a solid building using the right layer.")
+        return
+      end
+
       bb_box.add(grid.grid_3d_points)
       self.create_boundary_box(bb_box.min, bb_box.max)
 
@@ -93,8 +102,10 @@ module Envimet::EnvimetInx
       context = Building.new(2)
 
       val = grid.repartition_z.last.m
+      
 
-      building.wall_material, building.roof_material = self.set_building_materials("Building Materials")
+      materials = self.set_building_materials("Building Materials")
+      building.wall_material, building.roof_material = materials
 
       voxels = self.voxels_3d(grid, "buildings")
       building.create_voxel_matrix(voxels, grid)
@@ -109,7 +120,9 @@ module Envimet::EnvimetInx
       self.show_layers
       UI.messagebox("Building calculated!")
 
-      context.wall_material, context.roof_material = self.set_building_materials("Context Materials")
+      materials = self.set_building_materials("Context Materials")
+      context.wall_material, context.roof_material = materials
+
       voxels = self.voxels_3d(grid, "context")
       context.create_voxel_matrix(voxels, grid)
 
@@ -155,6 +168,8 @@ module Envimet::EnvimetInx
     prompts = ["Wall Material", "Roof Material"]
     defaults = ["000000", "000000"]
     results = UI.inputbox(prompts, defaults, text)
+    results = defaults if results.is_a?(FalseClass)
+
     results
 
   end
@@ -165,6 +180,7 @@ module Envimet::EnvimetInx
     prompts = ["2d Plant Material"]
     defaults = ["0000XX"]
     results = UI.inputbox(prompts, defaults, text)
+    
     results
 
   end
