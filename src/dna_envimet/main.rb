@@ -1,22 +1,22 @@
-require_relative "preparation/preparation"
-require_relative "preparation/serialize"
-require_relative "geometry/building"
-require_relative "geometry/plant2d"
-require_relative "geometry/plant3d"
-require_relative "geometry/soil"
-require_relative "geometry/terrain"
-require_relative "geometry/grid"
-require_relative "geometry/layers"
-require_relative "geometry/receptor"
-require_relative "geometry/source"
-require_relative "settings/location"
-require_relative "util/util"
-require_relative "util/tool"
-require_relative "ui/messagebox"
-require_relative "io/library"
-require_relative "command"
-require_relative "util/computation"
-require_relative "io/inx"
+["preparation/preparation",
+ "preparation/serialize",
+ "geometry/building",
+ "geometry/plant2d",
+ "geometry/plant3d",
+ "geometry/soil",
+ "geometry/terrain",
+ "geometry/grid",
+ "geometry/layers",
+ "geometry/receptor",
+ "geometry/source",
+ "settings/location",
+ "util/util",
+ "util/tool",
+ "ui/messagebox",
+ "io/library",
+ "command",
+ "util/computation",
+ "io/inx"].each { |path| Sketchup::require(File.join(File.dirname(__FILE__), path)) }
 
 module Envimet
   module EnvimetInx
@@ -33,7 +33,11 @@ module Envimet
 
       @@preparation = Preparation.new
       @@preparation.add_value("library", { soil: [], wall: [], plant2d: [], greening: [], plant3d: [], source: [] })
-      import_library # import lib in silent mode
+      begin
+        import_library # import lib in silent mode
+      rescue SystemCallError => e
+        puts "Library missing!"
+      end
 
       toolbar = UI::Toolbar.new "ENVI_MET Inx"
 
