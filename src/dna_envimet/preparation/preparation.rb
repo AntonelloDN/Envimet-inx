@@ -1,7 +1,6 @@
 module Envimet
   module EnvimetInx
     class Preparation
-
       attr_reader :objects
 
       def initialize
@@ -15,11 +14,10 @@ module Envimet
       def get_value(name)
         objects[name]
       end
-	  
-	    def reset
+
+      def reset
         @objects = {}
       end
-
     end # end Preparation
   end # end EnvimetInx
 end # end Envimet
