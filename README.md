@@ -14,6 +14,7 @@ A plugin for Sketchup to write *.inx files for ENVI_MET.
 Install *rbz from Sketchup Extension Warehouse.
 
 ## Video:
+[Youtube playlist](https://www.youtube.com/playlist?list=PLVk71QLjaA6PjTkmDH3mwLHAcHBp3lI94)
 
 ## To do:
 a) A better idea for textures
