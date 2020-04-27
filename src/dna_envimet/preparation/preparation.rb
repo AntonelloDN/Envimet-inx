@@ -16,7 +16,7 @@ module Envimet
         objects[name]
       end
 	  
-	  def reset
+	    def reset
         @objects = {}
       end
 

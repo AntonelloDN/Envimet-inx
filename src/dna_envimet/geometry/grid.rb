@@ -26,16 +26,16 @@ module Envimet
           @dimZ = dimZ.m
           @other_info = values
 		  
-		  @guid = nil
+		      @guid = nil
         end
 
         def to_s
-		  "<tr><th>CELL SIZE</th><th>DIMENSION</th></tr><tr><th>#{dimX}, #{dimY}, #{dimZ}</th><th>#{other_info[:numX]+1}X, #{other_info[:numY]+1}Y, #{other_info[:numZ_cells]}Z</th></tr>"
+		      "<tr><th>CELL SIZE</th><th>DIMENSION</th></tr><tr><th>#{dimX}, #{dimY}, #{dimZ}</th><th>#{other_info[:numX]+1}X, #{other_info[:numY]+1}Y, #{other_info[:numZ_cells]}Z</th></tr>"
         end
 
         def set_sequence_and_extension(bb_min, bb_max)
-		  calculate_grid_xy(bb_min, bb_max)
-		  height = []
+		      calculate_grid_xy(bb_min, bb_max)
+		      height = []
 		  
           case (other_info[:grid_type])
             when :equidistant
@@ -48,22 +48,22 @@ module Envimet
               other_info[:sequence] = get_equidistant_sequence(other_info[:numZ_cells]).map(&:to_f)
           end
 		  
-		  other_info[:height] = other_info[:sequence].sum
+		      other_info[:height] = other_info[:sequence].sum
         end
         
 		
-		def set_x_axis
-		  x_axis = []
-		  0.step(other_info[:numX]) { |i| x_axis << (i * dimX) + other_info[:minX] }
-		  other_info[:x_axis] = x_axis
-		end
-		
-		
-		def set_y_axis
-		  y_axis = []
-		  0.step(other_info[:numY]) { |j| y_axis << (j * dimY) + other_info[:minY] }
-		  other_info[:y_axis] = y_axis
-		end
+		    def set_x_axis
+		      x_axis = []
+		      0.step(other_info[:numX]) { |i| x_axis << (i * dimX) + other_info[:minX] }
+		      other_info[:x_axis] = x_axis
+		    end
+		    
+		    
+		    def set_y_axis
+		      y_axis = []
+		      0.step(other_info[:numY]) { |j| y_axis << (j * dimY) + other_info[:minY] }
+		      other_info[:y_axis] = y_axis
+		    end
         
 		
         def base_matrix_2d(item = nil)
@@ -83,13 +83,13 @@ module Envimet
         def self.merge_2d(matrix, default="")
           new_matrix = []
           matrix.transpose.each do |column|
-		    row = []
+		        row = []
             column.transpose.each do |el|
               temp = el.compact
-			  item = default
-			  item = temp.last unless temp.empty?
-			  row << item
-			end
+			        item = default
+			        item = temp.last unless temp.empty?
+			        row << item
+			      end
             new_matrix << row
           end
           new_matrix
@@ -97,7 +97,7 @@ module Envimet
 		
 		
         def self.get_envimet_matrix(matrix)
-		text = "§"
+		      text = "§"
           matrix.reverse.each do |column|
             text << column.join(',')
             text += "§"
@@ -106,32 +106,32 @@ module Envimet
         end
 		
 		
-		def guid=(value)
-	      @guid = value if value
-	    end
+		    def guid=(value)
+	        @guid = value if value
+	      end
 		
-		# class method
-	    def self.get_by_group_guid(guid)
-	      grid = @@objects.select { |grd| guid == grd.guid }
-		  grid
-        end
-	    
-	    def self.get_existing_guid
-	      existing_guid = @@objects.map { |grid| grid.guid }
-		  existing_guid
-	    end
-		
-	    def self.delete_by_group_guid(guid)
-	      @@objects.delete_if { |grd| guid == grd.guid }
-        end
-	    
-	    def self.add_grid(grid)
-	      @@objects << grid if grid.is_a?(Grid) && !grid.guid.nil?
-	    end
-	    
-	    def self.get_grid
-	      @@objects
-	    end
+		    # class method
+	      def self.get_by_group_guid(guid)
+	        grid = @@objects.select { |grd| guid == grd.guid }
+		    grid
+          end
+	      
+	      def self.get_existing_guid
+	        existing_guid = @@objects.map { |grid| grid.guid }
+		    existing_guid
+	      end
+		  
+	      def self.delete_by_group_guid(guid)
+	        @@objects.delete_if { |grd| guid == grd.guid }
+          end
+	      
+	      def self.add_grid(grid)
+	        @@objects << grid if grid.is_a?(Grid) && !grid.guid.nil?
+	      end
+	      
+	      def self.get_grid
+	        @@objects
+	      end
 	    
 		
         private
@@ -162,7 +162,7 @@ module Envimet
           other_info[:numY] = numY
           other_info[:minX] = minX
           other_info[:minY] = minY
-		  other_info[:maxX] = maxX
+		      other_info[:maxX] = maxX
           other_info[:maxY] = maxY
         end
 
@@ -183,10 +183,10 @@ module Envimet
 
           num_z_cell.times do |k|
             if (val * k < other_info[:start_telescope_heigth])
-                sequence[k] = cell;
+              sequence[k] = cell;
             else
-                sequence[k] = val + (val * other_info[:telescope] / 100);
-                val = sequence[k];
+              sequence[k] = val + (val * other_info[:telescope] / 100);
+              val = sequence[k];
             end
           end
 
