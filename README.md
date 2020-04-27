@@ -17,5 +17,5 @@ Install *rbz from Sketchup Extension Warehouse.
 [Youtube playlist](https://www.youtube.com/playlist?list=PLVk71QLjaA6PjTkmDH3mwLHAcHBp3lI94)
 
 ## To do:
-a) A better idea for textures
+a) A better idea for textures<br>
 b) material info improvement
