@@ -1,7 +1,7 @@
 # ---------------------------------------------------------
-# Envimet INX: A basic plugin for Sketchup to write *.inx files of ENVI_MET 4.3.
+# Envimet INX: A plugin for Sketchup to write *.inx files for ENVI_MET.
 # 
-# Copyright (c) 2013-2019, Antonello Di Nunzio <antonellodinunzio@gmail.com> 
+# Copyright (c) Antonello Di Nunzio <antonellodinunzio@gmail.com> 
 # Envimet INX is free software; you can redistribute it and/or modify 
 # it under the terms of the GNU General Public License as published 
 # by the Free Software Foundation; either version 3 of the License, 
@@ -16,7 +16,7 @@
 # along with Envimet INX; If not, see <http://www.gnu.org/licenses/>.
 # 
 # @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
-# ---------------------------------------------------------
+# ----------------------------------------------------------
 
 require 'sketchup.rb'
 require 'extensions.rb'
@@ -31,8 +31,8 @@ module Envimet
       
       ex = SketchupExtension.new("Envimet INX", "dna_envimet/main")
 
-      ex.description = "ENVI_MET inx basic plugin for SketchUp."
-      ex.version     = "1.0.0"
+      ex.description = "ENVI_MET inx 2.5D plugin for SketchUp."
+      ex.version     = "1.0.1"
       ex.copyright   = "GNU GPL V.3+"
       ex.creator     = "Antonello Di Nunzio, antonellodinunzio@gmail.com"
 
@@ -41,5 +41,5 @@ module Envimet
       file_loaded(__FILE__)
     end
 
-  end
-end
+  end # end EnvimetInx
+end # end Envimet

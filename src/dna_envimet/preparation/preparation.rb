@@ -1,21 +1,25 @@
-module Envimet::EnvimetInx
+module Envimet
+  module EnvimetInx
+    class Preparation
 
-  class Preparation
+      attr_reader :objects
 
-    attr_reader :objects
+      def initialize
+        @objects = {}
+      end
 
-    def initialize
-      @objects = {}
-    end
+      def add_value(name, value)
+        objects[name] = value
+      end
 
-    def add_value(name, value)
-      objects[name] = value
-    end
+      def get_value(name)
+        objects[name]
+      end
+	  
+	  def reset
+        @objects = {}
+      end
 
-    def get_value(name)
-      objects[name]
-    end
-
-  end
-
-end
+    end # end Preparation
+  end # end EnvimetInx
+end # end Envimet

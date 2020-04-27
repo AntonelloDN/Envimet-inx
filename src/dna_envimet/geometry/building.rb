@@ -1,119 +1,92 @@
-module Envimet::EnvimetInx
-
-  class Building
-
-    attr_accessor :matrix, :building_flag_and_nr, :wall_material, :roof_material
-
-    def initialize(index)
-
-      @wall_material = "000000"
-      @roof_material = "000000"
-      @building_flag_and_nr = ""
-      @matrix = []
-      @index = index
-
-    end
-
-    def create_voxel_matrix(voxel_points, grid)
-
-      self.matrix = grid.base_matrix_3d(0)
-
-      voxel_points.each do |pt|
-        valX = ((pt.x - grid.other_info[:minX]) / grid.dimX).round(0)
-        valY = ((pt.y - grid.other_info[:minY]) / grid.dimY).round(0)
-        valZ = grid.repartition_z.index(pt.z.to_m)
-
-        valX = valX.to_i
-        valY = valY.to_i
-        valZ = valZ.to_i
-
-        self.matrix[valZ][valY][valX] = @index
-        self.building_flag_and_nr += "#{valX},#{valY},#{valZ},1,#{@index}§"
-
-      end
-
-    end
-
-
-    def self.merge_matrix(study_area, context, op_proc)
-
-      matrix = []
-      (study_area.length).times do |z|
-        column = []
-        (study_area[z].length).times do |j|
-          row = []
-          (study_area[z][j].length).times  do |i|
-            element1, element2 = study_area[z][j][i], context[z][j][i]
-        	  val = op_proc.call(element1, element2)
-        	  row << val
-          end
-      	  column << row
-        end
-        matrix << column
-      end
-
-      matrix
-
-    end
-
-
-    def self.set_materials(matrix, matWall, matRoof)
+module Envimet
+  module EnvimetInx
+    module Geometry
+      class Building
+	  
+	    DEFAULT_WALL_MATERIAL = "000000"
+	    DEFAULT_ROOF_MATERIAL = "000000"
       
-      wall_db = ""
+        @@count = 0
+	    @@objects = []
+		
+	    attr_accessor :other_info
+		attr_reader :guid, :index, :name
+		
+		
+        def initialize(name = " ", others = {})
+      
+	      @name = name
+		  
+		  values = {
+            wall_material:DEFAULT_WALL_MATERIAL,
+            roof_material:DEFAULT_ROOF_MATERIAL,
+            green_wall:nil,
+            green_roof:nil
+          }
 
-      (matrix.length).times do |k|
-        (matrix[k].length).times do |j|
-          (matrix[k][j].length).times do |i|
-            if matrix[k][j][i] != 0
-              index = matrix[k][j][i] - 1
-              if matrix[k][j][i-1] == 0 && matrix[k][j-1][i] == 0 && matrix[k-1][j][i] == 0
-                wall_db += "#{i},#{j},#{k},#{matWall[index]},#{matWall[index]},#{matRoof[index]}§"
-              elsif matrix[k][j][i-1] == 0 && matrix[k][j-1][i] != 0 && matrix[k-1][j][i] == 0
-                wall_db += "#{i},#{j},#{k},#{matWall[index]},,#{matRoof[index]}§"
-              elsif matrix[k][j][i-1] != 0 && matrix[k][j-1][i] == 0 && matrix[k-1][j][i] == 0
-                wall_db += "#{i},#{j},#{k},,#{matWall[index]},#{matRoof[index]}§"
-              elsif matrix[k][j][i-1] == 0 && matrix[k][j-1][i] == 0 && matrix[k-1][j][i] != 0
-                wall_db += "#{i},#{j},#{k},#{matWall[index]},#{matWall[index]},§"
-              elsif matrix[k][j][i-1] == 0 && matrix[k][j-1][i] != 0 && matrix[k-1][j][i] != 0
-                wall_db += "#{i},#{j},#{k},#{matWall[index]},,§"
-              elsif matrix[k][j][i-1] != 0 && matrix[k][j-1][i] == 0 && matrix[k-1][j][i] != 0
-                wall_db += "#{i},#{j},#{k},,#{matWall[index]},§"
-              elsif matrix[k][j][i-1] != 0 && matrix[k][j-1][i] != 0 && matrix[k-1][j][i] == 0
-                wall_db += "#{i},#{j},#{k},,,#{matRoof[index]}§"
-              end
-            else
-              if matrix[k][j][i-1] != 0 && matrix[k][j-1][i] == 0 && matrix[k-1][j][i] == 0
-                index = matrix[k][j][i-1] - 1
-                wall_db += "#{i},#{j},#{k},#{matWall[index]},,§"
-              elsif matrix[k][j][i-1] == 0 && matrix[k][j-1][i] != 0 && matrix[k-1][j][i] == 0
-                index = matrix[k][j-1][i] - 1
-                wall_db += "#{i},#{j},#{k},,#{matWall[index]},§"
-              elsif matrix[k][j][i-1] == 0 && matrix[k][j-1][i] == 0 && matrix[k-1][j][i] != 0
-                index = matrix[k-1][j][i] - 1
-                wall_db += "#{i},#{j},#{k},,,#{matRoof[index]}§"
-              elsif matrix[k][j][i-1] != 0 && matrix[k][j-1][i] != 0 && matrix[k-1][j][i] == 0
-                index = matrix[k][j-1][i] - 1
-                wall_db += "#{i},#{j},#{k},#{matWall[index]},#{matWall[index]},§"
-              elsif matrix[k][j][i-1] != 0 && matrix[k][j-1][i] == 0 && matrix[k-1][j][i] != 0
-                indexW = matrix[k][j][i-1] - 1
-                indexR = matrix[k-1][j][i] - 1
-                wall_db += "#{i},#{j},#{k},#{matWall[indexW]},,#{matRoof[indexR]}§"
-              elsif matrix[k][j][i-1] == 0 && matrix[k][j-1][i] != 0 && matrix[k-1][j][i] != 0
-                indexW = matrix[k][j-1][i] - 1
-                indexR = matrix[k-1][j][i] - 1
-                wall_db += "#{i},#{j},#{k},,#{matWall[indexW]},#{matRoof[indexR]}§"
-              elsif matrix[k][j][i-1] != 0 && matrix[k][j-1][i] != 0 && matrix[k-1][j][i] != 0
-                indexW = matrix[k][j-1][i] -1
-                indexR = matrix[k-1][j][i] -1
-                wall_db += "#{i},#{j},#{k},#{matWall[indexW]},#{matWall[indexW]},#{matRoof[indexR]}§"
-              end
-            end
-          end
+          values.merge!(others)
+		  @other_info = values
+		  
+	  	  @guid = nil
+	      @@count += 1
+	    
+          @index = @@count
+      
         end
-      end
-      wall_db
-    end
-
-  end
-
-end
+	    
+	    def guid=(value)
+	      @guid = value if value
+	    end
+	    
+	    def to_s
+		  "<tr><th>ID</th><th>NAME</th><th>WALL_MATERIAL</th><th>ROOF_MATERIAL</th></tr><tr><th>#{index}</th><th>#{name}</th><th>#{other_info[:wall_material]}|#{other_info[:green_wall]}</th><th>#{other_info[:roof_material]}|#{other_info[:green_roof]}</th></tr>"
+	    end
+		
+		def self.set_max_count(objects)
+		  index = objects.map {|obj| obj.get_count}
+		  @@count = index.max + 1
+		end
+	    
+	    def self.get_count
+	      @@count
+	    end
+	    
+	    # class method
+	    def self.get_by_group_guid(guid)
+	      building = @@objects.select { |bld| guid == bld.guid }
+	  	  building
+        end
+	    
+	    def self.get_existing_guid
+	      existing_guid = @@objects.map { |build| build.guid }
+	  	  existing_guid
+	    end
+		
+	    def self.delete_by_group_guid(guid)
+	      @@objects.delete_if { |bld| guid == bld.guid }
+        end
+	    
+	    def self.add_buildings(building)
+	      @@objects << building if building.is_a?(Building) && !building.guid.nil?
+	    end
+	    
+	    def self.get_buildings
+	      @@objects
+	    end
+		
+		def self.set_index(objects)
+		  index_list = objects.grep(Geometry::Building).map {|obj| obj.index}
+		  unless index_list.empty?
+	        @@count = index_list.max
+		  end
+		end
+		
+		def self.reset
+		  @@objects = []
+		  @@count = 0
+		end
+      
+      end # end Building
+	end # end Geometry
+  end # end EnvimetInx
+end # end Envimet

@@ -1,27 +1,20 @@
 # Envimet-inx
-A basic plugin for Sketchup to write *.inx files for ENVI_MET 4.3.
+A plugin for Sketchup to write *.inx files for ENVI_MET.
 
-![Tutorial](https://github.com/AntonelloDN/Envimet-inx/blob/master/examples/tutorial.gif)
+![Tutorial](https://github.com/AntonelloDN/Envimet-inx/blob/master/examples/EnvimetINX.PNG)
 
 ## Features:
-- Calculate automatically grid dimensions based on buildings
-- Create a 3d model with buildings, 2d trees
-
-## Limits:
-- Unit of the template must be "meter"
-- Components and Group not supported
-- Buildings must be volumes
-- You can apply only one wall material and roof material for all buildings or context
-- You cannot manage soils and dem
+- Create envimet objects: building, plant2D, plant3D, soil, terrain, receptor, source
+- Delete envimet objects
+- Read geo-location of Sketchup
+- Import/Export SKPINX: a file that contains envimet objects information related to a Sketchup model
+- Import envimet system library and envimet user library for materials
 
 ## Setup:
 Install *rbz from Sketchup Extension Warehouse.
 
+## Video:
+
 ## To do:
-a) A better method to create voxels... if model is huge it will run slow<br>
-b) Study a way to apply materials<br>
-c) Dem modeling<br>
-d) Soil modeling<br>
-e) Improve location settings. E.g. a way to set timezone.<br>
-f) Improve exception handling<br>
-g) Manage Components and Groups<br>
+a) A better idea for textures
+b) material info improvement
