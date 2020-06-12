@@ -23,5 +23,5 @@ Install *rbz from [Sketchup Extension Warehouse](https://extensions.sketchup.com
 - Project library is not supported (use user library instead for now or free-form)
 
 ## To do:
-[ ] A better idea for textures
-[ ] Material info improvement
+- [ ] A better idea for textures
+- [ ] Material info improvement
