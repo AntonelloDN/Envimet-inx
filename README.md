@@ -25,3 +25,4 @@ Install *rbz from [Sketchup Extension Warehouse](https://extensions.sketchup.com
 ## To do:
 - [ ] A better idea for textures
 - [ ] Material info improvement
+- [x] Recursive method to change object layer
