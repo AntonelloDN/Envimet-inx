@@ -14,7 +14,7 @@ A plugin for Sketchup to write *.inx files for ENVI_MET.
 [Wiki](https://github.com/AntonelloDN/Envimet-inx/wiki)
 
 ## Setup:
-Install *rbz from [Sketchup Extension Warehouse](https://extensions.sketchup.com/extension/e99e6c45-22c1-4c43-9c2e-d6d326925763/envimet-inx).
+Install *rbz from [Sketchup Extension Warehouse](https://extensions.sketchup.com/extension/e99e6c45-22c1-4c43-9c2e-d6d326925763/envimet-inx). OR install *rbz file above - it is a pre-release of next official version.
 
 ## Video:
 [Youtube playlist](https://www.youtube.com/playlist?list=PLVk71QLjaA6PjTkmDH3mwLHAcHBp3lI94)
