@@ -40,6 +40,20 @@ module Envimet
         lines
       end
 
+
+      def self.change_layer_of_selection_to_target_layer(entity, target_layer)
+        entity.layer = target_layer
+        if entity.is_a?(Sketchup::Group)
+          entity.entities.each do |element|
+            element.layer = target_layer
+            if element.is_a?(Sketchup::Group)
+              self.change_layer_of_selection_to_target_layer(element, target_layer)
+            end
+          end
+        end
+      end
+
+
       def self.get_base_grid(grid)
         dist_x = grid.dimX / 2
         dist_y = grid.dimY / 2

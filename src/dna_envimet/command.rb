@@ -167,6 +167,10 @@ module Envimet
 
       faces = Util.select_element_by_layer(SkpLayers::IN_BUILDING, Sketchup::Face)
       groups = Util.select_element_by_layer(SkpLayers::IN_BUILDING, Sketchup::Group)
+      
+      groups.each do |entity|
+        Util.change_layer_of_selection_to_target_layer(entity, SkpLayers::IN_BUILDING)
+      end
 
       if faces.empty? && groups.empty?
         UI.messagebox("Please, select Faces or Groups from '#{SkpLayers::IN_BUILDING}' layer")
@@ -225,6 +229,10 @@ module Envimet
       faces = Util.select_element_by_layer(SkpLayers::IN_PLANT2D, Sketchup::Face)
       groups = Util.select_element_by_layer(SkpLayers::IN_PLANT2D, Sketchup::Group)
 
+      groups.each do |entity|
+        Util.change_layer_of_selection_to_target_layer(entity, SkpLayers::IN_PLANT2D)
+      end
+
       if faces.empty? && groups.empty?
         UI.messagebox("Please, select Faces or Groups from '#{SkpLayers::IN_PLANT2D}' layer.")
         return
@@ -272,6 +280,10 @@ module Envimet
       faces = Util.select_element_by_layer(SkpLayers::IN_SOURCE, Sketchup::Face)
       groups = Util.select_element_by_layer(SkpLayers::IN_SOURCE, Sketchup::Group)
 
+      groups.each do |entity|
+        Util.change_layer_of_selection_to_target_layer(entity, SkpLayers::IN_SOURCE)
+      end
+
       if faces.empty? && groups.empty?
         UI.messagebox("Please, select Faces or Groups from '#{SkpLayers::IN_SOURCE}' layer.")
         return
@@ -318,6 +330,10 @@ module Envimet
 
       faces = Util.select_element_by_layer(SkpLayers::IN_PLANT3D, Sketchup::Face)
       groups = Util.select_element_by_layer(SkpLayers::IN_PLANT3D, Sketchup::Group)
+
+      groups.each do |entity|
+        Util.change_layer_of_selection_to_target_layer(entity, SkpLayers::IN_PLANT3D)
+      end
 
       if faces.empty? && groups.empty?
         UI.messagebox("Please, select Faces or Groups from '#{SkpLayers::IN_PLANT3D}' layer.")
@@ -368,6 +384,10 @@ module Envimet
       faces = Util.select_element_by_layer(SkpLayers::IN_SOIL, Sketchup::Face)
       groups = Util.select_element_by_layer(SkpLayers::IN_SOIL, Sketchup::Group)
 
+      groups.each do |entity|
+        Util.change_layer_of_selection_to_target_layer(entity, SkpLayers::IN_SOIL)
+      end
+
       if faces.empty? && groups.empty?
         UI.messagebox("Please, select Faces or Groups from '#{SkpLayers::IN_SOIL}' layer.")
         return
@@ -415,6 +435,10 @@ module Envimet
       faces = Util.select_element_by_layer(SkpLayers::IN_TERRAIN, Sketchup::Face)
       groups = Util.select_element_by_layer(SkpLayers::IN_TERRAIN, Sketchup::Group)
 
+      groups.each do |entity|
+        Util.change_layer_of_selection_to_target_layer(entity, SkpLayers::IN_TERRAIN)
+      end
+
       if faces.empty? && groups.empty?
         UI.messagebox("Please, select Faces or Groups from '#{SkpLayers::IN_TERRAIN}' layer.")
         return
@@ -460,6 +484,10 @@ module Envimet
 
       faces = Util.select_element_by_layer(SkpLayers::IN_RECEPTOR, Sketchup::Face)
       groups = Util.select_element_by_layer(SkpLayers::IN_RECEPTOR, Sketchup::Group)
+
+      groups.each do |entity|
+        Util.change_layer_of_selection_to_target_layer(entity, SkpLayers::IN_RECEPTOR)
+      end
 
       if faces.empty? && groups.empty?
         UI.messagebox("Please, select Faces or Groups from '#{SkpLayers::IN_RECEPTOR}' layer.")
