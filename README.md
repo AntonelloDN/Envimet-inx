@@ -25,4 +25,5 @@ Install *rbz from [Sketchup Extension Warehouse](https://extensions.sketchup.com
 ## To do:
 - [ ] A better idea for textures
 - [ ] Material info improvement
+- [ ] Point concept to create plant3D and receptors
 - [x] Recursive method to change object layer - available here but to be publish on Sketchup Extension Warehouse
