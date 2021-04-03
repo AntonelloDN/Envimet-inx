@@ -132,13 +132,12 @@ module Envimet
 
     def self.set_envimet_location
       if @@preparation.get_value("location").nil?
-        geolocation = Sketchup.active_model.attribute_dictionaries["GeoReference"]
 
-        result = Util.get_location_prompt(geolocation)
+        result = Util.get_location_prompt
 
         if !result.nil? && result != false
-          name, latitude, longitude, utc, rotation = result
-          location = Settings::Location.new(name, latitude, longitude, utc, rotation)
+          name, latitude, longitude, utc, rotation, reference_longitude = result
+          location = Settings::Location.new(name, latitude, longitude, utc, rotation, reference_longitude)
 
           @@preparation.add_value("location", location)
         end
@@ -167,7 +166,7 @@ module Envimet
 
       faces = Util.select_element_by_layer(SkpLayers::IN_BUILDING, Sketchup::Face)
       groups = Util.select_element_by_layer(SkpLayers::IN_BUILDING, Sketchup::Group)
-      
+
       groups.each do |entity|
         Util.change_layer_of_selection_to_target_layer(entity, SkpLayers::IN_BUILDING)
       end

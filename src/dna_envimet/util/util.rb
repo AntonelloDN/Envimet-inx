@@ -149,12 +149,16 @@ module Envimet
         result
       end
 
-      def self.get_location_prompt(geolocation)
-        latitude, longitude, locationsource, north = geolocation["Latitude"], geolocation["Longitude"], geolocation["LocationSource"], geolocation["GeoReferenceNorthAngle"]
+      def self.get_location_prompt
+        georeference = Sketchup.active_model.attribute_dictionaries["GeoReference"]
 
-        prompts = ["Location Name", "Latitude", "Longitude", "Time Zone", "GeoReference North Angle"]
-        default = [locationsource, latitude, longitude, "UTC-7", north]
-        list = ["", "", "", Settings::Location::UTC, ""]
+        latitude, longitude, locationsource, north = georeference["Latitude"], georeference["Longitude"], Sketchup.active_model.shadow_info["City"], georeference["GeoReferenceNorthAngle"]
+        
+        reference_longitude = Sketchup.active_model.shadow_info["TZOffset"] * 15
+
+        prompts = ["Location Name", "Latitude", "Longitude", "Time Zone", "GeoReference North Angle", "Reference Longitude"]
+        default = [locationsource, latitude, longitude, "UTC-7", north, reference_longitude]
+        list = ["", "", "", Settings::Location::UTC, "", ""]
         result = UI.inputbox(prompts, default, list, "Set Location")
 
         result
