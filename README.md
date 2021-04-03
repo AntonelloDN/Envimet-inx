@@ -6,7 +6,7 @@ A plugin for Sketchup to write *.inx files for ENVI_MET.
 # SKP Versions
 * SKP 2019
 * SKP 2020
-* SKP 2021**
+* SKP 2021
 
 ## Features:
 - Create envimet objects: building, plant2D, plant3D, soil, terrain, receptor, source
@@ -33,5 +33,3 @@ Install *rbz from [Sketchup Extension Warehouse](https://extensions.sketchup.com
 - [ ] Point concept to create plant3D and receptors
 - [x] Recursive method to change object layer - available here but to be publish on Sketchup Extension Warehouse
 - [ ] Working to a new version without layers. WIP
-
-** there is a bug to fix, with 3d trees
