@@ -94,7 +94,7 @@ module Envimet
             plant3d.each do |plt_group|
               plt_group.other_info[:pixels].each do |pix|
                 plant3d_info = { "rootcell_i" => pix.i, "rootcell_j" => pix.j, "rootcell_k" => 0, "plantID" => plt_group.other_info[:material], "name" => plt_group.name, "observe" => 0 }
-                create_childs(root, "3Dplants", plant3d_info)
+                create_childs(root, "threeDimplants", plant3d_info)
               end
             end
           end
@@ -147,6 +147,7 @@ module Envimet
         def adapt_xml_text(text)
           text.gsub!("§", "\n")
           text.gsub!("\'", "\"")
+          text.gsub!("threeDimplants", "3Dplants")
         end
 
         def envimet_object_validation(preparation)
