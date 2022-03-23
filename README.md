@@ -1,3 +1,5 @@
+# THERE IS A NEW VERSION OF THE PLUGIN. PLEASE, SEE [HERE](https://github.com/ENVI-coding/Envimet-INX)
+
 # Envimet-inx
 A plugin for Sketchup to write *.inx files for ENVI_MET.
 
